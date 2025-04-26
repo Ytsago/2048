@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wong_car_wai.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 09:13:16 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 18:28:39 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/04/26 21:01:41 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ void	init_grid(int **grid, int size);
 int		generat_number(int **grid, int size);
 
 //-------Movement-------//
-int		move_left(int **grid, int size, int *score);
-int		move_down(int **grid, int size, int *score);
-int		move_up(int **grid, int size, int *score);
-int		move_right(int **grid, int size, int *score);
+int		move_left(int **grid, int size, size_t *score);
+int		move_down(int **grid, int size, size_t *score);
+int		move_up(int **grid, int size, size_t *score);
+int		move_right(int **grid, int size, size_t *score);
 
 //--------Utils--------//
 void draw_game_grid(int size);
@@ -80,8 +80,8 @@ void window_resize(int signal);
 void	display_menu(int *running, int *skippall, WINDOW *menu, int *selected_grid);
 int	**create_grid(int size);
 void	display(int **grid, int size);
-int	ft_get_n_size(int n);
-void	game_while(int selected_grid, int **grid, int *score, int win_condition, int *biggest, int *youaredead_screen, t_player *current_player, t_player *high);
+int	ft_get_n_size(size_t n);
+void	game_while(int selected_grid, int **grid, size_t *score, int win_condition, int *biggest, int *youaredead_screen, t_player *current_player, t_player *high);
 void init_display_colors();
 
 

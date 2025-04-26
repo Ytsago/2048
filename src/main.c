@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 10:11:21 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 17:04:48 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/04/26 20:57:59 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int main(int ac, char **av) {
 	int		youaredead_screen = 0;
 	int		skippall = 0;
 
-	int score = 0;
+	size_t score = 0;
 
 	signal(SIGWINCH, window_resize);
 
@@ -113,7 +113,7 @@ int main(int ac, char **av) {
 				
 				
 				
-				mvwprintw(death_screen, LINES / 2 + 2, COLS / 2 - ((8 + ft_get_n_size(score)) / 2), "Score : %d", score);
+				mvwprintw(death_screen, LINES / 2 + 2, COLS / 2 - ((8 + ft_get_n_size(score)) / 2), "Score : %zu", score);
 				attroff(COLOR_PAIR(1));
 						
 				input = getch();

@@ -6,13 +6,13 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 10:43:49 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 14:29:09 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 20:59:37 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "move.h"
 
-int	move_right(int **grid, int size, int *score)
+int	move_right(int **grid, int size, size_t *score)
 {
 	int	moved = 0;
 	int	i;
@@ -28,7 +28,7 @@ int	move_right(int **grid, int size, int *score)
 	return (moved);
 }
 
-int	move_left(int **grid, int size, int *score)
+int	move_left(int **grid, int size, size_t *score)
 {
 	int	moved = 0;
 	int	i;
@@ -44,7 +44,7 @@ int	move_left(int **grid, int size, int *score)
 	return (moved);
 }
 
-int	move_up(int **grid, int size, int *score)
+int	move_up(int **grid, int size, size_t *score)
 {
 	int	moved = 0;
 	int	i;
@@ -60,7 +60,7 @@ int	move_up(int **grid, int size, int *score)
 	return (moved);
 }
 
-int	move_down(int **grid, int size, int *score)
+int	move_down(int **grid, int size, size_t *score)
 {
 	int	moved = 0;
 	int	i;

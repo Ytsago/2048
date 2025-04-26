@@ -50,14 +50,9 @@ SRCS_B =	$(addprefix $(SRCDIR_BONUS), $(BONUS)) \
 
 # -----------OTHER-----------#
 
-# OBJS =	$(patsubst $(SRCDIR)%.c, $(OBJDIR)%.o, $(SRCS))
-# OBJS_B =	$(patsubst $(SRCDIR_BONUS)%.c, $(OBJDIR)%.o, $(SRCS_B))
 
 OBJS = $(SRCS:%.c=$(OBJDIR)%.o)
 OBJS_B = $(SRCS_B:%.c=$(OBJDIR)%.o)
-
-debug:
-	echo $(OBJS)
 
 HEADER = $(addprefix $(INCDIR), $(INC))
 

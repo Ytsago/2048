@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 09:13:16 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 15:46:20 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 15:48:35 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ struct s_player
 
 struct s_high
 {
-	t_player	best[5];
+	t_player	best[BOARD_SIZE];
 };
 
 void	init_grid(int **grid, int size);

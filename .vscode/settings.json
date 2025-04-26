@@ -5,6 +5,8 @@
 		"signal.h": "c",
 		"libft.h": "c",
 		"atomic": "cpp",
-		"limits": "c"
+		"limits": "c",
+		"*.tcc": "c",
+		"string": "c"
 	}
 }

@@ -1,8 +1,0 @@
-damien:2048
-rudolf:4096
-lisa:64
-melanie:8192
-romain:640
-chris:124
-philipe:9485
-Unknow:600

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wong_car_wai.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 09:13:16 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 16:42:11 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/04/26 17:11:42 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ extern int sig_global;
 
 # define NAME_D "Unknow"
 # define FILENAME "highscore.txt"
-# define BOARD_SIZE 5
+# define TMP_FILENAME "tmp_highscore.txt"
+# define SCORE_SIZE 5
 
 typedef struct	s_player	t_player;
 
@@ -60,7 +61,7 @@ struct s_player
 
 struct s_high
 {
-	t_player	best[BOARD_SIZE];
+	t_player	best[SCORE_SIZE];
 };
 
 void	init_grid(int **grid, int size);

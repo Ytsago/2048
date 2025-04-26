@@ -6,13 +6,14 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 11:50:23 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 11:50:30 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 13:59:07 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	slide_right_row(int *grid, int size)
+int	slide_right_row(int *grid, int size)
 {
 	int		i;
+	int		moved = 0;
 	int		move = 1;
 
 	i = 0;
@@ -29,15 +30,18 @@ void	slide_right_row(int *grid, int size)
 		{
 			grid[i + 1] = grid[i];
 			grid[i] = 0;
+			moved = 1;
 			move = 1;
 		}
 		i++;
 	}
+	return (moved);
 }
 
-void	slide_left_row(int *grid, int size)
+int	slide_left_row(int *grid, int size)
 {
 	int		i;
+	int		moved = 0;
 	int		move = 1;
 
 	i = size - 1;
@@ -54,15 +58,18 @@ void	slide_left_row(int *grid, int size)
 		{
 			grid[i - 1] = grid[i];
 			grid[i] = 0;
+			moved = 1;
 			move = 1;
 		}
 		i--;
 	}
+	return (moved);
 }
 
-void	slide_up_col(int **grid, int size, int j)
+int	slide_up_col(int **grid, int size, int j)
 {
 	int		i;
+	int		moved = 0;
 	int		move = 1;
 
 	i = size - 1;
@@ -79,15 +86,18 @@ void	slide_up_col(int **grid, int size, int j)
 		{
 			grid[i - 1][j] = grid[i][j];
 			grid[i][j] = 0;
+			moved = 1;
 			move = 1;
 		}
 		i--;
 	}
+	return (moved);
 }
 
-void	slide_down_col(int **grid, int size, int j)
+int	slide_down_col(int **grid, int size, int j)
 {
 	int		i;
+	int		moved = 0;
 	int		move = 1;
 
 	i = 0;
@@ -104,8 +114,10 @@ void	slide_down_col(int **grid, int size, int j)
 		{
 			grid[i + 1][j] = grid[i][j];
 			grid[i][j] = 0;
+			moved = 1;
 			move = 1;
 		}
 		i++;
 	}
+	return (moved);
 }

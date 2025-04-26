@@ -6,65 +6,72 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 10:43:49 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 12:20:27 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 14:06:43 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "move.h"
 
-void	move_right(int **grid, int size)
+int	move_right(int **grid, int size, int *score)
 {
+	int	moved = 0;
 	int	i;
 
 	i = 0;
 	while (i < size)
 	{
-		slide_right_row(grid[i], size);
-		fuse_right(grid[i], size);
-		slide_right_row(grid[i], size);
+		moved += slide_right_row(grid[i], size);
+		moved += fuse_right(grid[i], size);
+		moved += slide_right_row(grid[i], size);
 		i++;
 	}
+	return (moved);
 }
 
-void	move_left(int **grid, int size)
+int	move_left(int **grid, int size, int *score)
 {
+	int	moved = 0;
 	int	i;
 	
 	i = 0;
 	while (i < size)
 	{
-		slide_left_row(grid[i], size);
-		fuse_left(grid[i], size);
-		slide_left_row(grid[i], size);
+		moved += slide_left_row(grid[i], size);
+		moved += fuse_left(grid[i], size);
+		moved += slide_left_row(grid[i], size);
 		i++;
 	}
+	return (moved);
 }
 
-void	move_up(int **grid, int size)
+int	move_up(int **grid, int size, int *score)
 {
+	int	moved = 0;
 	int	i;
 	
 	i = 0;
 	while (i < size)
 	{
-		slide_up_col(grid, size, i);
-		fuse_up(grid, size, i);
-		slide_up_col(grid, size, i);
+		moved += slide_up_col(grid, size, i);
+		moved += fuse_up(grid, size, i);
+		moved += slide_up_col(grid, size, i);
 		i++;
 	}
-
+	return (moved);
 }
 
-void	move_down(int **grid, int size)
+int	move_down(int **grid, int size, int *score)
 {
+	int	moved = 0;
 	int	i;
 	
 	i = 0;
 	while (i < size)
 	{
-		slide_down_col(grid, size, i);
-		fuse_down(grid, size, i);
-		slide_down_col(grid, size, i);
+		moved += slide_down_col(grid, size, i);
+		moved += fuse_down(grid, size, i);
+		moved += slide_down_col(grid, size, i);
 		i++;
 	}
+	return (moved);
 }

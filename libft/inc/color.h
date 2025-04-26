@@ -6,21 +6,21 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 11:04:05 by secros            #+#    #+#             */
-/*   Updated: 2025/02/13 11:20:39 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 13:47:29 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COLOR_H
 # define COLOR_H
 
-# define BG_BLACK   "\033[40m"
-# define BG_RED     "\033[41m"
-# define BG_GREEN   "\033[42m"
-# define BG_YELLOW  "\033[43m"
-# define BG_BLUE    "\033[44m"
-# define BG_MAGENTA "\033[45m"
-# define BG_CYAN    "\033[46m"
-# define BG_WHITE   "\033[47m"
+# define CBG_BLACK   "\033[40m"
+# define CBG_RED     "\033[41m"
+# define CBG_GREEN   "\033[42m"
+# define CBG_YELLOW  "\033[43m"
+# define CBG_BLUE    "\033[44m"
+# define CBG_MAGENTA "\033[45m"
+# define CBG_CYAN    "\033[46m"
+# define CBG_WHITE   "\033[47m"
 
 # define BG_BRIGHT_BLACK   "\033[100m"
 # define BG_BRIGHT_RED     "\033[101m"
@@ -49,8 +49,8 @@
 # define FG_BRIGHT_CYAN    "\033[96m"
 # define FG_BRIGHT_WHITE   "\033[97m"
 
-# define BOLD "\033[1m"
+# define C_BOLD "\033[1m"
 
-# define RESET   "\033[0m"
+# define C_RESET   "\033[0m"
 
 #endif

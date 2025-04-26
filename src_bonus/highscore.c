@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   highscore.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:43:30 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 18:28:16 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/04/26 18:35:08 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,8 @@ int	update_score(char *filename, t_player *current)
 	while ((str = get_next_line(fd)))
 	{
 		readed = convert_to_board(str);
+		if (!readed.name)
+			return (2);
 		if (!ft_strncmp(current->name, readed.name, ft_strlen(current->name) + 1))
 		{
 			readed.score = current->score;
@@ -218,44 +220,3 @@ void	sort_board(t_high *board)
 		i++;
 	}
 }
-
-// void	display_board(t_high board)
-// {
-// 	int	i = 0;
-// 	char	*nb;
-// 	while (i < SCORE_SIZE)
-// 	{
-// 		if (!board.best[i].name)
-// 			break ;
-// 		ft_printf("%s :", board.best[i].name);
-// 		ft_printf(" %s\n", (nb = ft_itoa(board.best[i].score)));
-// 		free (nb);
-// 		i++;
-// 	}
-// }
-
-// int	main()
-// {
-// 	t_high		board;
-// 	int i = 0;
-// 	t_player 	current;
-
-// 	ft_bzero(&current, sizeof(t_player));
-// 	current.name = NAME_D;
-
-// 	ft_bzero(&board, sizeof(board));
-// 	if (get_highscore(FILENAME, &board, &current))
-// 	{
-// 		while (i < SCORE_SIZE)
-// 		{
-// 			if (board.best[i].name)
-// 				free(board.best[i].name);
-// 			i++;
-// 		}
-// 		return (1);
-// 	}
-// 	sort_board(&board);
-// 	display_board(board);
-// 	while (i < SCORE_SIZE)
-// 	ft_printf("\n--- Current score : %d\n", current.score);
-// }

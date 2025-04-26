@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 10:11:21 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 18:48:37 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/04/26 18:56:09 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int main(int ac, char **av) {
 
 	if (get_highscore(FILENAME, &leaderboard, &current_player))
 	{
+		endwin();
 		ft_printf("Incorrect leaderboard file, destroy it or repair it\n");
 		int e = 0;
 		while (e < SCORE_SIZE)
@@ -76,7 +77,6 @@ int main(int ac, char **av) {
 			e++;
 		}
 		free_the_mallocs((void *)grid);
-		endwin();
 		return (1);
 	}
 

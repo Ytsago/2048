@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   highscore.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:43:30 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 18:47:42 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 18:53:34 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,24 +199,23 @@ int	update_score(char *filename, t_player *current)
 
 void	sort_board(t_high *board)
 {
-	bool		sorted = FALSE;
 	t_player	tmp;
 	int			i = 0;
 
-	while (!sorted)
+	int j = 0;
+	while (j < SCORE_SIZE)
 	{
-		if (i == SCORE_SIZE - 1)
+		i = 0;
+		while (i < SCORE_SIZE - 1)
 		{
-			i = 0;
-			sorted = TRUE;
+			if (board->best[i].score < board->best[i + 1].score)
+			{
+				tmp = board->best[i];
+				board->best[i] = board->best[i + 1];
+				board->best[i + 1] = tmp;
+			}
+			i++;
 		}
-		if (board->best[i].score < board->best[i + 1].score)
-		{
-			tmp = board->best[i];
-			board->best[i] = board->best[i + 1];
-			board->best[i + 1] = tmp;
-			sorted = FALSE;
-		}
-		i++;
+		j++;
 	}
 }

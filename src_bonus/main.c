@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 10:11:21 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 17:04:48 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/04/26 18:26:57 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ int main(int ac, char **av) {
 		name = av[1];
 	else
 		name = NAME_D;
-
-	t_player current_player;
-	current_player.score = 0;
   
   srand(time(NULL));
   
@@ -63,6 +60,15 @@ int main(int ac, char **av) {
 		return (1);
 	}
 
+	t_player current_player;
+	current_player.score = 0;
+	current_player.name = name;
+	t_high	leaderboard;
+	ft_bzero(leaderboard.best, sizeof(t_player) * SCORE_SIZE);
+
+	get_highscore(FILENAME, &leaderboard, &current_player);
+	sort_board(&leaderboard);
+
 	clear();
 
 	int win_condition = WIN_VALUE;
@@ -75,7 +81,7 @@ int main(int ac, char **av) {
 		int refreshnext = 1;
     	init_grid(grid, selected_grid);
 	
-		game_while(selected_grid, grid, &score, win_condition, &biggest, &youaredead_screen, &current_player, &current_player);
+		game_while(selected_grid, grid, &score, win_condition, &biggest, &youaredead_screen, &current_player, &leaderboard.best[0]);
 	
 		clear();
 		
@@ -83,6 +89,18 @@ int main(int ac, char **av) {
 		assume_default_colors(COLOR_RED, COLOR_BLACK);
 
 		death_screen = subwin(stdscr, LINES, COLS, 0, 0);
+
+		int num_leaderboard = 0;
+		int i = 0;
+		while (i < SCORE_SIZE)
+		{
+			if (!leaderboard.best[i].name || leaderboard.best[i].score == 0)
+				break ;
+			i++;
+		}
+		num_leaderboard = i;
+
+		int havebeenupdated = 0;
 
 		while (youaredead_screen == 1)
 		{
@@ -98,22 +116,44 @@ int main(int ac, char **av) {
 				
 				if (win_condition == -1 || win_condition > biggest)
 				{
-					mvwprintw(death_screen, LINES / 2 - 3, COLS / 2 - 50 / 2, " _  _  __   _  _    __     __    __   ____  ____ ");
-					mvwprintw(death_screen, LINES / 2 - 2, COLS / 2 - 50 / 2, "( \\/ )/  \\ / )( \\  (  )   /  \\  /  \\ / ___)(  __)");
-					mvwprintw(death_screen, LINES / 2 - 1, COLS / 2 - 50 / 2, " )  /(  O )) \\/ (  / (_/\\(  O )(  O )\\___ \\ ) _) ");
-					mvwprintw(death_screen, LINES / 2, COLS / 2 - 50 / 2, "(__/  \\__/ \\____/  \\____/ \\__/  \\__/ (____/(____)");
+					mvwprintw(death_screen, LINES / 2 - 5 - num_leaderboard / 2, COLS / 2 - 50 / 2, " _  _  __   _  _    __     __    __   ____  ____ ");
+					mvwprintw(death_screen, LINES / 2 - 4 - num_leaderboard / 2, COLS / 2 - 50 / 2, "( \\/ )/  \\ / )( \\  (  )   /  \\  /  \\ / ___)(  __)");
+					mvwprintw(death_screen, LINES / 2 - 3 - num_leaderboard / 2, COLS / 2 - 50 / 2, " )  /(  O )) \\/ (  / (_/\\(  O )(  O )\\___ \\ ) _) ");
+					mvwprintw(death_screen, LINES / 2 - 2 - num_leaderboard / 2, COLS / 2 - 50 / 2, "(__/  \\__/ \\____/  \\____/ \\__/  \\__/ (____/(____)");
 				}
 				else
 				{
-					mvwprintw(death_screen, LINES / 2 - 3, COLS / 2 - 36 / 2, " _  _  __   _  _    _  _  __  __ _ ");
-					mvwprintw(death_screen, LINES / 2 - 2, COLS / 2 - 36 / 2, "( \\/ )/  \\ / )( \\  / )( \\(  )(  ( \\");
-					mvwprintw(death_screen, LINES / 2 - 1, COLS / 2 - 36 / 2, " )  /(  O )) \\/ (  \\ /\\ / )( /    /");
-					mvwprintw(death_screen, LINES / 2, COLS / 2 - 36 / 2, "(__/  \\__/ \\____/  (_/\\_)(__)\\_)__)");
+					mvwprintw(death_screen, LINES / 2 - 5 - num_leaderboard / 2, COLS / 2 - 36 / 2, " _  _  __   _  _    _  _  __  __ _ ");
+					mvwprintw(death_screen, LINES / 2 - 4 - num_leaderboard / 2, COLS / 2 - 36 / 2, "( \\/ )/  \\ / )( \\  / )( \\(  )(  ( \\");
+					mvwprintw(death_screen, LINES / 2 - 3 - num_leaderboard / 2, COLS / 2 - 36 / 2, " )  /(  O )) \\/ (  \\ /\\ / )( /    /");
+					mvwprintw(death_screen, LINES / 2 - 2 - num_leaderboard / 2, COLS / 2 - 36 / 2, "(__/  \\__/ \\____/  (_/\\_)(__)\\_)__)");
+				}
+				
+				
+				mvwprintw(death_screen, LINES / 2 - num_leaderboard / 2, COLS / 2 - ((8 + ft_get_n_size(score)) / 2), "Score : %d", score);
+				if (current_player.score < (size_t)score)
+				{
+					mvwprintw(death_screen, LINES / 2 + 1 - num_leaderboard / 2, COLS / 2 - 21 / 2, "New personnal best !");
+
+					if (havebeenupdated == 0)
+					{
+						size_t tmp = current_player.score;
+						current_player.score = score;
+						update_score(FILENAME, &current_player);
+						current_player.score = tmp;
+						havebeenupdated = 1;
+					}
+				}
+
+				int i = 0;
+				while (i < num_leaderboard)
+				{
+					mvwprintw(death_screen, LINES / 2 + 3 - num_leaderboard / 2 + i, COLS / 2 - 25, "%d. %s : %zu", i + 1, leaderboard.best[i].name, leaderboard.best[i].score);
+					i++;
 				}
 				
 				
 				
-				mvwprintw(death_screen, LINES / 2 + 2, COLS / 2 - ((8 + ft_get_n_size(score)) / 2), "Score : %d", score);
 				attroff(COLOR_PAIR(1));
 						
 				input = getch();

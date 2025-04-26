@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:38:25 by lilefebv          #+#    #+#             */
-/*   Updated: 2025/04/26 16:45:12 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 18:19:49 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -384,7 +384,7 @@ int is_game_blocked(int **grid, int size)
 	return (1);
 }
 
-void	game_while(int selected_grid, int **grid, int *score, int win_condition, int *biggest, int *youaredead_screen)
+void	game_while(int selected_grid, int **grid, int *score, int win_condition, int *biggest, int *youaredead_screen, t_player *current_player, t_player *high)
 {
 	WINDOW	*game;
 	int input;
@@ -410,7 +410,14 @@ void	game_while(int selected_grid, int **grid, int *score, int win_condition, in
 			mvwprintw(game, LINES - 5, COLS - 1, "┤");
 			put_grid_to_win(grid, selected_grid, *biggest);
 
-			mvwprintw(game, LINES - 3, 10, "Score : %d", *score);
+			if (current_player->score == 0 && high->score == 0)
+				mvwprintw(game, LINES - 3, 10, "Score : %d", *score);
+			else if (current_player->score != 0 && high->score == 0)
+				mvwprintw(game, LINES - 3, 10, "Score : %d    Personal best : %zu", *score, current_player->score);
+			else if (current_player->score == 0 && high->score != 0 && high->name)
+				mvwprintw(game, LINES - 3, 10, "Score : %d    Global best : %s: %zu", *score, high->name, high->score);
+			else if (current_player->score != 0 && high->score != 0 && high->name)
+				mvwprintw(game, LINES - 3, 10, "Score : %d    Personal best : %zu    Global best : %s: %zu", *score, current_player->score, high->name, high->score);
 
 			y = 0;
 			while (y < selected_grid)
@@ -440,6 +447,7 @@ void	game_while(int selected_grid, int **grid, int *score, int win_condition, in
 							*youaredead_screen = 1;
 							running = 0;
 						}
+
 					}
 					if (is_game_blocked(grid, selected_grid))
 					{

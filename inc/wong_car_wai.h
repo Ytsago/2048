@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wong_car_wai.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 09:13:16 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 17:11:42 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 18:28:39 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 
 extern int sig_global;
 
-# define NAME_D "Unknow"
-# define FILENAME "highscore.txt"
-# define TMP_FILENAME "tmp_highscore.txt"
+# define NAME_D "Unknown"
+# define FILENAME ".highscore"
+# define TMP_FILENAME ".tmp_highscore"
 # define SCORE_SIZE 5
 
 typedef struct	s_player	t_player;
@@ -81,7 +81,14 @@ void	display_menu(int *running, int *skippall, WINDOW *menu, int *selected_grid)
 int	**create_grid(int size);
 void	display(int **grid, int size);
 int	ft_get_n_size(int n);
-void	game_while(int selected_grid, int **grid, int *score, int win_condition, int *biggest, int *youaredead_screen);
+void	game_while(int selected_grid, int **grid, int *score, int win_condition, int *biggest, int *youaredead_screen, t_player *current_player, t_player *high);
 void init_display_colors();
+
+
+// SCORE
+
+int	get_highscore(char *filename, t_high *board, t_player *current);
+void	sort_board(t_high *board);
+int	update_score(char *filename, t_player *current);
 
 #endif

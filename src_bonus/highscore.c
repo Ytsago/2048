@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   highscore.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:43:30 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 18:17:11 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 18:28:16 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ int	get_highscore(char *filename, t_high *board, t_player *current)
 {
 	int			fd;
 	char		*str;
-	char		*tmp;
 	t_player	new;
 	int			i = 0;
 
@@ -162,7 +161,7 @@ int	update_score(char *filename, t_player *current)
 	int			fd;
 	int			fd2;
 
-	fd = open(FILENAME, O_RDWR);
+	fd = open(filename, O_RDWR);
 	if (fd == -1)
 		return (1);
 	fd2 = open(TMP_FILENAME, O_RDWR | O_TRUNC | O_CREAT, 0644);
@@ -185,11 +184,14 @@ int	update_score(char *filename, t_player *current)
 		free(str);
 	}
 	if (new_player)
+	{
 		write_in_file(fd2, *current, 1);
+		write(fd2, "\n", 1);
+	}
 	close(fd);
 	close(fd2);
-	unlink(FILENAME);
-	rename(TMP_FILENAME, FILENAME);
+	unlink(filename);
+	rename(TMP_FILENAME, filename);
 	return (0);
 }
 
@@ -255,12 +257,5 @@ void	sort_board(t_high *board)
 // 	sort_board(&board);
 // 	display_board(board);
 // 	while (i < SCORE_SIZE)
-// 	{
-// 		if (board.best[i].name)
-// 			free(board.best[i].name);
-// 		i++;
-// 	}
-// 	current.score = 3000;
-// 	update_score(FILENAME, &current);
 // 	ft_printf("\n--- Current score : %d\n", current.score);
 // }

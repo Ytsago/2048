@@ -27,7 +27,7 @@ OBJDIR = .Obj/
 
 MAIN =		main.c
 
-UTILS =		slide.c
+UTILS =		slide.c utils.c
 
 GAME =		number.c		movement.c		fuse.c
 

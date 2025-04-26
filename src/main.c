@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 10:11:21 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 11:49:25 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 12:30:37 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int main(int ac, char **av)
 		display(grid, size);
 		free(move);
 	}
+	free_the_mallocs((void *)grid);
 	display(grid, size);
 	return (0);
 }

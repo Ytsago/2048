@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 09:13:16 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 12:00:18 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 12:30:16 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,5 @@ void	move_left(int **grid, int size);
 void	move_down(int **grid, int size);
 void	move_up(int **grid, int size);
 void	move_right(int **grid, int size);
-
-//--------fusion--------//
-
-
 
 #endif

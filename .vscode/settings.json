@@ -1,0 +1,6 @@
+{
+	"files.associations": {
+		"ncurses.h": "c",
+		"wong_car_wai.h": "c"
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 10:11:21 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 13:48:45 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 14:23:12 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,6 +289,12 @@ int main(int ac, char **av) {
 	running = 1;
 	clear();
 
+	int win_condition = WIN_VALUE;
+	if (win_condition > 0 && (win_condition & (win_condition - 1)))
+		win_condition = -1;
+	int biggest = 0;
+	int y, x;
+
 	if (skippall == 0)
 	{
 		game = subwin(stdscr, LINES, COLS, 0, 0);
@@ -299,37 +305,75 @@ int main(int ac, char **av) {
 		while (running)
 		{
 			if (COLS < 36 || LINES <= 16) {
-				mvwprintw(menu, LINES / 2, COLS / 2 - 13 / 2, "Win to small");
+				mvwprintw(game, LINES / 2, COLS / 2 - 13 / 2, "Win to small");
 			}
 			else
 			{
 				erase();
+				assume_default_colors(COLOR_WHITE, COLOR_BLACK);
 				box(game, ACS_VLINE, ACS_HLINE);
 				draw_game_grid(selected_grid);
 				mvwprintw(game, LINES - 5, 0, "├");
 				mvwprintw(game, LINES - 5, COLS - 1, "┤");
 				put_grid_to_win(grid, selected_grid);
+
+				mvwprintw(game, LINES - 3, 10, "Score : %d", score);
+
+				y = 0;
+				while (y < selected_grid)
+				{
+					x = 0;
+					while (x < selected_grid)
+					{
+						if (biggest < grid[y][x])
+							biggest = grid[y][x];
+						x++;
+					}
+					y++;
+				}
+
+				if (win_condition != -1 && win_condition <= biggest)
+					mvwprintw(game, LINES - 3, 30, "You won, you can leave the game with [SPACE]");
 		
 				input = getch();
 				if (input != ERR) {
-				//	mvwprintw(game, 1, 10, "%d", input);
-
-					if (input == 'q') {
+					if (input == 27) {
 						running = 0;
 					} else if (input == KEY_LEFT) {
 						move_left(grid, selected_grid);
-            			generat_number(grid, selected_grid);
+            			if (generat_number(grid, selected_grid))
+						{
+							youaredead_screen = 1;
+							running = 0;
+						}
 					} else if (input == KEY_RIGHT) {
 						move_right(grid, selected_grid);
-            			generat_number(grid, selected_grid);
+            			if (generat_number(grid, selected_grid))
+						{
+							youaredead_screen = 1;
+							running = 0;
+						}
 					} else if (input == KEY_UP) {
 						move_up(grid, selected_grid);
-           			 	generat_number(grid, selected_grid);
+						if (generat_number(grid, selected_grid))
+						{
+							youaredead_screen = 1;
+							running = 0;
+						}
 					} else if (input == KEY_DOWN) {
 						move_down(grid, selected_grid);
-            			generat_number(grid, selected_grid);
+            			if (generat_number(grid, selected_grid))
+						{
+							youaredead_screen = 1;
+							running = 0;
+						}
+					} else if (input == ' ') {
+						if (win_condition != -1 && win_condition <= biggest)
+						{
+							youaredead_screen = 1;
+							running = 0;
+						}
 					}
-					
 				}
 			}
 			
@@ -342,29 +386,61 @@ int main(int ac, char **av) {
 			}
 			wrefresh(game);
 		}
-
 	
 		clear();
 		
 		start_color();
 		assume_default_colors(COLOR_RED, COLOR_BLACK);
 
-		if (youaredead_screen == 1)
-		{		
-			death_screen = subwin(stdscr, LINES, COLS, 0, 0);
-			box(death_screen, ACS_VLINE, ACS_HLINE);
+		while (youaredead_screen == 1)
+		{
+			if (COLS < 36 || LINES <= 16) {
+				mvwprintw(menu, LINES / 2, COLS / 2 - 13 / 2, "Win to small");
+			}
+			else
+			{
+				erase();
+				death_screen = subwin(stdscr, LINES, COLS, 0, 0);
+				box(death_screen, ACS_VLINE, ACS_HLINE);
+				
+				attron(COLOR_PAIR(1));
+				
+				if (win_condition == -1 || win_condition > biggest)
+				{
+					mvwprintw(death_screen, LINES / 2 - 3, COLS / 2 - 50 / 2, " _  _  __   _  _    __     __    __   ____  ____ ");
+					mvwprintw(death_screen, LINES / 2 - 2, COLS / 2 - 50 / 2, "( \\/ )/  \\ / )( \\  (  )   /  \\  /  \\ / ___)(  __)");
+					mvwprintw(death_screen, LINES / 2 - 1, COLS / 2 - 50 / 2, " )  /(  O )) \\/ (  / (_/\\(  O )(  O )\\___ \\ ) _) ");
+					mvwprintw(death_screen, LINES / 2, COLS / 2 - 50 / 2, "(__/  \\__/ \\____/  \\____/ \\__/  \\__/ (____/(____)");
+				}
+				else
+				{
+					mvwprintw(death_screen, LINES / 2 - 3, COLS / 2 - 36 / 2, " _  _  __   _  _    _  _  __  __ _ ");
+					mvwprintw(death_screen, LINES / 2 - 2, COLS / 2 - 36 / 2, "( \\/ )/  \\ / )( \\  / )( \\(  )(  ( \\");
+					mvwprintw(death_screen, LINES / 2 - 1, COLS / 2 - 36 / 2, " )  /(  O )) \\/ (  \\ /\\ / )( /    /");
+					mvwprintw(death_screen, LINES / 2, COLS / 2 - 36 / 2, "(__/  \\__/ \\____/  (_/\\_)(__)\\_)__)");
+				}
+				
+				
+				
+				mvwprintw(death_screen, LINES / 2 + 2, COLS / 2 - ((8 + ft_get_n_size(score)) / 2), "Score : %d", score);
+				attroff(COLOR_PAIR(1));
+						
+				input = getch();
+				if (input != ERR) {
+					if (input == 27 || input == 'q' || input == ' ') {
+						youaredead_screen = 0;
+					}
+				}
+			}
 			
-			attron(COLOR_PAIR(1));
-			mvwprintw(death_screen, LINES / 2 - 3, COLS / 2 - 63 / 2, " _  _  __   _  _     __   ____  ____    ____  ____   __   ____ ");
-			mvwprintw(death_screen, LINES / 2 - 2, COLS / 2 - 63 / 2, "( \\/ )/  \\ / )( \\   / _\\ (  _ \\(  __)  (    \\(  __) / _\\ (    \\");
-			mvwprintw(death_screen, LINES / 2 - 1, COLS / 2 - 63 / 2, " )  /(  O )) \\/ (  /    \\ )   / ) _)    ) D ( ) _) /    \\ ) D (");
-			mvwprintw(death_screen, LINES / 2, COLS / 2 - 63 / 2, "(__/  \\__/ \\____/  \\_/\\_/(__\\_)(____)  (____/(____)\\_/\\_/(____/");
-			
-			mvwprintw(death_screen, LINES / 2 + 2, COLS / 2 - ((8 + ft_get_n_size(score)) / 2), "Score : %d", score);
-			attroff(COLOR_PAIR(1));
-			
-			wrefresh(death_screen);
-
+			if (sig_global == SIGWINCH)
+			{
+				endwin();
+				clear();
+				wrefresh(menu);
+				sig_global = -1;
+			}
+			wrefresh(game);
 		}
 	}
 	

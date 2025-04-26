@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wong_car_wai.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 09:13:16 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 12:30:16 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 12:17:34 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,14 @@
 # define WONG_CAR_WAI_H
 
 # include <ncurses.h>
+# include <time.h>
+# include <unistd.h>
+# include <locale.h>
+# include <signal.h>
 # include "libft.h"
+# include "ft_printf.h"
+
+extern int sig_global;
 
 # define NAME_D "Unknow"
 

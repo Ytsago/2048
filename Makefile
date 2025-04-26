@@ -1,6 +1,8 @@
 # -----------RULES-----------#
 
+
 CFLAGS = -Wall  -Wextra -Werror -MMD -MP -g3
+
 CC = cc
 AR = ar
 ARFLAG = -rcs
@@ -29,7 +31,8 @@ UTILS =		slide.c
 
 GAME =		number.c		movement.c		fuse.c
 
-INC =		libft.h		slide.h
+INC =		libft.h	ft_printf.h	slide.h
+
 
 # -----------SRCS-----------#
 
@@ -56,7 +59,7 @@ NAME =	2048
 all: $(NAME) Makefile
 
 $(NAME): $(LIBS) $(OBJS)
-	$(CC) $(CFLAG) -lncurses $(OBJS) -o $(NAME) $(LIBDIR)$(LIBS)
+	$(CC) $(CFLAG) -lncursesw $(OBJS) -o $(NAME) $(LIBDIR)$(LIBS)
 
 $(OBJDIR)%.o: $(SRCDIR)%.c Makefile | $(OBJDIR)
 	$(CC) $(CFLAGS) -I $(INCDIR) $(if $(LIBS),-I $(LIBDIR)$(INCDIR)) -c $< -o $@ 

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:43:30 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 18:35:08 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 18:47:42 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	get_highscore(char *filename, t_high *board, t_player *current)
 		new = convert_to_board(str);
 		if (!new.name)
 			return (2);
-		if (!ft_strncmp(current->name, new.name, ft_strlen(current->name + 1)))
+		if (!ft_strncmp(current->name, new.name, ft_strlen(current->name) + 1))
 			current->score = new.score;
 		if (i < SCORE_SIZE)
 			board->best[i] = new;

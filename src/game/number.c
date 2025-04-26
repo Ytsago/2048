@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   logic.c                                            :+:      :+:    :+:   */
+/*   number.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 09:44:56 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 11:55:55 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 13:27:37 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	is_full(int **grid, int size)
 {
 	int	i, j;
+	int	count = 0;
 
 	i = 0;
 	while (i < size)
@@ -23,21 +24,22 @@ int	is_full(int **grid, int size)
 		while (j < size)
 		{
 			if (grid[i][j] == 0)
-				return (0);
+				count++;
 			j++;
 		}
 		i++;
 	}
-	return (1);
+	return (count);
 }
 
 int	generat_number(int **grid, int size)
 {
 	int		i, j;
+	int		nb_free;
 	bool	new = TRUE;
 
 	i = 0;
-	if (is_full(grid, size))
+	if (!(nb_free = is_full(grid, size)))
 		return (1);
 	while (new)
 	{
@@ -45,7 +47,7 @@ int	generat_number(int **grid, int size)
 		j = 0;
 		while (new && j < size)
 		{
-			if (grid[i][j] == 0 && rand() % 10 == 0)
+			if (grid[i][j] == 0 && rand() % nb_free == 0)
 			{
 				if (rand() % 4 == 0)
 					grid[i][j] = 4;

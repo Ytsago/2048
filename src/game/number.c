@@ -6,30 +6,11 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 09:44:56 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 11:33:33 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 11:55:55 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wong_car_wai.h"
-
-// void	fuse_number(int **grid, int size, int x_dir, int y_dir)
-// {
-// 	int	i, j;
-
-// 	while (i < size + y_dir)
-// 	{
-// 		while (j < size + x_dir)
-// 		{
-// 			if (grid[i][j] == grid[i][j + x_dir])
-// 			{
-// 				grid[i][j + x_dir] += grid[i][j];
-// 				grid[i][j] = 0;
-// 				j++;
-// 			}
-// 			j++;
-// 		}
-// 	}
-// }
 
 int	is_full(int **grid, int size)
 {

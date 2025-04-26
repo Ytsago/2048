@@ -27,7 +27,7 @@ MAIN =		main.c
 
 UTILS =		slide.c
 
-GAME =		logic.c		movement.c
+GAME =		number.c		movement.c		fuse.c
 
 INC =		libft.h		slide.h
 

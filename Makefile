@@ -42,7 +42,7 @@ HEADER = $(addprefix $(INCDIR), $(INC))
 
 LIBS =	
 
-NAME =	philo
+NAME =	2048
 
 # -----------RULES-----------#
 

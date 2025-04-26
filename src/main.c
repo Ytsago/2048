@@ -272,7 +272,7 @@ int main(void) {
 		
 				input = getch();
 				if (input != ERR) {
-					mvwprintw(game, 1, 10, "%d", input);
+				//	mvwprintw(game, 1, 10, "%d", input);
 
 					if (input == 'q') {
 						running = 0;

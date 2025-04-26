@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 10:11:21 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 18:36:20 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 18:48:37 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,20 @@ int main(int ac, char **av) {
 	t_high	leaderboard;
 	ft_bzero(leaderboard.best, sizeof(t_player) * SCORE_SIZE);
 
-	get_highscore(FILENAME, &leaderboard, &current_player);
+	if (get_highscore(FILENAME, &leaderboard, &current_player))
+	{
+		ft_printf("Incorrect leaderboard file, destroy it or repair it\n");
+		int e = 0;
+		while (e < SCORE_SIZE)
+		{
+			free(leaderboard.best[e].name);
+			e++;
+		}
+		free_the_mallocs((void *)grid);
+		endwin();
+		return (1);
+	}
+
 	sort_board(&leaderboard);
 
 	clear();
@@ -167,7 +180,6 @@ int main(int ac, char **av) {
 			if (sig_global == SIGWINCH)
 			{
 				endwin();
-				//clear();
 				wrefresh(death_screen);
 				sig_global = -1;
 				refreshnext = 1;
@@ -179,6 +191,12 @@ int main(int ac, char **av) {
 		}
 	}
 	
+	int e = 0;
+	while (e < SCORE_SIZE)
+	{
+		free(leaderboard.best[e].name);
+		e++;
+	}
     endwin();
 	free_the_mallocs((void *)grid);
     return 0;

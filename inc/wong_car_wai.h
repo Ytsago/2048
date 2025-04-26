@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 09:13:16 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 15:21:50 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/04/26 15:43:04 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ extern int sig_global;
 # define NAME_D "Unknow"
 
 typedef struct	s_player	t_player;
+
+typedef struct	s_high	t_high;
 
 enum e_const
 {
@@ -48,12 +50,15 @@ enum colors_pairs {
 	COLOR_PAIR_HIGHER
 };
 
-struct t_player
+struct s_player
 {
 	char	*name;
 	size_t	score;
-	int		**grid;
-	int		size;
+};
+
+struct s_high
+{
+	t_player	best[5];
 };
 
 void	init_grid(int **grid, int size);

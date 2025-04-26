@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 11:56:02 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 14:08:59 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 14:30:40 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	fuse_left(int *grid, int size, int *score)
 			grid[i] += grid[i + 1];
 			grid[i + 1] = 0;
 			fuse = 1;
-			score += grid[i];
+			*score += grid[i];
 		}
 		i++;
 	}
@@ -41,7 +41,7 @@ int	fuse_right(int *grid, int size, int *score)
 			grid[i] += grid[i - 1];
 			grid[i - 1] = 0;
 			fuse = 1;
-			score += grid[i];
+			*score += grid[i];
 		}
 		i--;
 	}
@@ -60,7 +60,7 @@ int	fuse_up(int **grid, int size, int j, int *score)
 			grid[i][j] += grid[i + 1][j];
 			grid[i + 1][j] = 0;
 			fuse = 1;
-			score += grid[i][j];
+			*score += grid[i][j];
 		}
 		i++;
 	}
@@ -79,7 +79,7 @@ int	fuse_down(int **grid, int size, int j, int *score)
 			grid[i][j] += grid[i - 1][j];
 			grid[i - 1][j] = 0;
 			fuse = 1;
-			score += grid[i][j];
+			*score += grid[i][j];
 		}
 		i--;
 	}

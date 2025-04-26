@@ -72,6 +72,9 @@ $(LIBS): FORCE
 
 bonus: $(NAME)_bonus
 
+$(NAME)_bonus: $(LIBS) $(OBJS)
+	$(CC) $(CFLAG) -lncursesw $(OBJS) -o $(NAME)_bonus $(LIBDIR)$(LIBS)
+
 # -----------UTILS-----------#
 
 clean:

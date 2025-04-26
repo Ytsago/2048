@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:43:30 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 19:09:02 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 19:11:22 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ int	update_score(char *filename, t_player *current)
 		readed = convert_to_board(str);
 		if (!readed.name)
 		{
+			free(str);
 			close(fd);
 			close(fd2);
 			unlink(TMP_FILENAME);

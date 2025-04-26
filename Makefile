@@ -99,6 +99,7 @@ endif
 
 fclean: clean
 	rm -f $(NAME)
+	rm -f $(NAME)_bonus
 ifneq ($(LIBS),)
 	@$(MAKE) $@ -C $(LIBDIR) 
 endif

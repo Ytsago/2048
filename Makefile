@@ -23,7 +23,7 @@ MAIN =		main.c
 
 UTILS =
 
-INC =		
+INC =		libft.h
 
 # -----------SRCS-----------#
 
@@ -40,7 +40,7 @@ DEPS =	$(OBJS:.o=.d)
 
 HEADER = $(addprefix $(INCDIR), $(INC))
 
-LIBS =	
+LIBS =	libft.a
 
 NAME =	2048
 

@@ -1,5 +1,55 @@
-#include <ncurses.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 10:11:21 by secros            #+#    #+#             */
+/*   Updated: 2025/04/26 12:30:37 by secros           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "wong_car_wai.h"
+#include <time.h>
+#include "ft_printf.h"
+#include "get_next_line.h"
+
+int	**create_grid(int size)
+{
+	int	**grid;
+	int	i = 0;
+
+	grid = ft_calloc(sizeof(int *), size + 1);
+	if (!grid)
+		return (NULL);
+	while (i < size)
+	{
+		grid[i] = ft_calloc(sizeof(int), size);
+		if (!grid[i])
+		{
+			free_the_mallocs((void *)grid);
+			return (NULL);
+		}
+		i++;
+	}
+	return (grid);
+}
+
+void	display(int **grid, int size)
+{
+	int	j;
+	int	i = 0;
+
+	while (grid[i])
+	{
+		j = 0;
+		while (j < size)
+			ft_printf("[%d]", grid[i][j++]);
+		ft_printf("\n");
+		i++;
+	}
+}
 
 int sig_global = -1;
 
@@ -224,7 +274,17 @@ int main(void) {
     WINDOW	*game;
 	WINDOW 	*death_screen;
 	WINDOW 	*menu;
+  char	*name;
 	
+  if (ac > 3)
+		return (1);
+	if (av[1])
+		name = av[1];
+	else
+		name = NAME_D;
+  
+  srand(time(NULL));
+  
 	int		running = 1;
 	int		youaredead_screen = 0;
 	int		skippall = 0;
@@ -256,6 +316,7 @@ int main(void) {
 		game = subwin(stdscr, LINES, COLS, 0, 0);
 
 		init_pair(1 , COLOR_RED, COLOR_BLACK);
+    init_grid(grid, size);
 	
 		while (running)
 		{
@@ -277,13 +338,17 @@ int main(void) {
 					if (input == 'q') {
 						running = 0;
 					} else if (input == KEY_LEFT) {
-						
+						move_left(grid, size);
+            generat_number(grid, size);
 					} else if (input == KEY_RIGHT) {
-						
+						move_right(grid, size);
+            generat_number(grid, size);
 					} else if (input == KEY_UP) {
-						
+						move_up(grid, size);
+            generat_number(grid, size);
 					} else if (input == KEY_DOWN) {
-						
+						move_down(grid, size);
+            generat_number(grid, size);
 					}
 					
 				}

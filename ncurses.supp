@@ -1,0 +1,51 @@
+{
+   ncurses_init
+   Memcheck:Leak
+   fun:calloc
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libncursesw.so.*
+}
+
+{
+   ncurses_colors
+   Memcheck:Leak
+   fun:malloc
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libncursesw.so.*
+}
+
+{
+   ncurses_terminfo
+   Memcheck:Leak
+   fun:_nc_setupterm
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libncursesw.so.*
+}
+
+{
+   ncurses_tty_settings
+   Memcheck:Param
+   ioctl(arg)
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libncursesw.so.*
+}
+
+{
+   tinfo_tiparm_leak
+   Memcheck:Leak
+   fun:malloc
+   fun:tsearch
+   obj:/usr/lib/x86_64-linux-gnu/libtinfo.so.*
+   obj:/usr/lib/x86_64-linux-gnu/libncursesw.so.*
+   fun:_nc_tiparm
+   fun:newterm_sp
+   fun:newterm
+   fun:initscr
+}
+
+{
+   tinfo_init_leak
+   Memcheck:Leak
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libtinfo.so.*
+}

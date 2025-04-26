@@ -31,7 +31,7 @@ UTILS =		slide.c
 
 GAME =		number.c		movement.c		fuse.c
 
-INC =		libft.h	ft_printf.h	slide.h
+INC =		libft.h			ft_printf.h		slide.h
 
 
 # -----------SRCS-----------#
@@ -69,6 +69,8 @@ $(OBJDIR):
 
 $(LIBS): FORCE
 	@$(MAKE) -C $(LIBDIR) --no-print-directory
+
+bonus: $(NAME)_bonus
 
 # -----------UTILS-----------#
 

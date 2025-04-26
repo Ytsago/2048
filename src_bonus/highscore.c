@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   highscore.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:43:30 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 18:53:34 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/04/26 19:04:00 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,10 @@ int	get_highscore(char *filename, t_high *board, t_player *current)
 	{
 		new = convert_to_board(str);
 		if (!new.name)
+		{
+			close(fd);	
 			return (2);
+		}
 		if (!ft_strncmp(current->name, new.name, ft_strlen(current->name) + 1))
 			current->score = new.score;
 		if (i < SCORE_SIZE)
@@ -174,7 +177,11 @@ int	update_score(char *filename, t_player *current)
 	{
 		readed = convert_to_board(str);
 		if (!readed.name)
+		{
+			close(fd);
+			close(fd2);
 			return (2);
+		}
 		if (!ft_strncmp(current->name, readed.name, ft_strlen(current->name) + 1))
 		{
 			readed.score = current->score;
@@ -218,4 +225,9 @@ void	sort_board(t_high *board)
 		}
 		j++;
 	}
+}
+
+int main()
+{
+	
 }

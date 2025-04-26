@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 10:11:21 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 12:30:37 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 12:47:12 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,27 +215,6 @@ void draw_game_grid(int size) {
     }
 }
 
-int    **create_grid(int size)
-{
-    int    **grid;
-    int    i = 0;
-
-    grid = ft_calloc(sizeof(int *), size + 1);
-    if (!grid)
-        return (NULL);
-    while (i < size)
-    {
-        grid[i] = ft_calloc(sizeof(int), size);
-        if (!grid[i])
-        {
-            free_the_mallocs((void *)grid);
-            return (NULL);
-        }
-        i++;
-    }
-    return (grid);
-}
-
 void	put_grid_to_win(int **grid, int size)
 {
 	int grid_top = 0;
@@ -262,7 +241,7 @@ void	put_grid_to_win(int **grid, int size)
 	}
 }
 
-int main(void) {
+int main(int ac, char **av) {
 	setlocale(LC_ALL, "en_US.UTF-8");
     initscr();
 	nodelay(stdscr, TRUE);
@@ -316,7 +295,7 @@ int main(void) {
 		game = subwin(stdscr, LINES, COLS, 0, 0);
 
 		init_pair(1 , COLOR_RED, COLOR_BLACK);
-    init_grid(grid, size);
+    	init_grid(grid, selected_grid);
 	
 		while (running)
 		{
@@ -338,17 +317,17 @@ int main(void) {
 					if (input == 'q') {
 						running = 0;
 					} else if (input == KEY_LEFT) {
-						move_left(grid, size);
-            generat_number(grid, size);
+						move_left(grid, selected_grid);
+            			generat_number(grid, selected_grid);
 					} else if (input == KEY_RIGHT) {
-						move_right(grid, size);
-            generat_number(grid, size);
+						move_right(grid, selected_grid);
+            			generat_number(grid, selected_grid);
 					} else if (input == KEY_UP) {
-						move_up(grid, size);
-            generat_number(grid, size);
+						move_up(grid, selected_grid);
+           			 	generat_number(grid, selected_grid);
 					} else if (input == KEY_DOWN) {
-						move_down(grid, size);
-            generat_number(grid, size);
+						move_down(grid, selected_grid);
+            			generat_number(grid, selected_grid);
 					}
 					
 				}

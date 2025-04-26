@@ -1,6 +1,6 @@
 # -----------RULES-----------#
 
-CFLAGS = -Wall  -Wextra -Werror -MMD -MP 
+CFLAGS = -Wall  -Wextra -Werror -MMD -MP
 CC = cc
 AR = ar
 ARFLAG = -rcs
@@ -23,7 +23,7 @@ MAIN =		main.c
 
 UTILS =
 
-INC =		
+INC =	ft_printf.h libft.h	
 
 # -----------SRCS-----------#
 
@@ -40,7 +40,7 @@ DEPS =	$(OBJS:.o=.d)
 
 HEADER = $(addprefix $(INCDIR), $(INC))
 
-LIBS =	
+LIBS = libft/libft.a
 
 NAME =	2048
 
@@ -49,10 +49,10 @@ NAME =	2048
 all: $(NAME) Makefile
 
 $(NAME): $(LIBS) $(OBJS)
-	$(CC) $(CFLAG) -lncurses $(OBJS) -o $(NAME) $(LIBS)
+	$(CC) $(CFLAG) -lncursesw $(OBJS) -o $(NAME) $(LIBS) 
 
 $(OBJDIR)%.o: $(SRCDIR)%.c | $(OBJDIR)
-	$(CC) $(CFLAGS) -I $(INCDIR) $(if $(LIBS),-I $(LIBDIR)$(INCDIR)) -c $< -o $@ 
+	$(CC) $(CFLAGS) -I $(INCDIR) -I libft/inc $(if $(LIBS),-I $(LIBDIR)$(INCDIR)) -c $< -o $@ 
 
 $(OBJDIR):
 	mkdir -p $(OBJDIR) $(dir $(OBJS))

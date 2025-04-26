@@ -58,7 +58,7 @@ NAME =	2048
 
 all: $(NAME) Makefile
 
-$(NAME): $(LIBS) $(OBJS)
+$(NAME): $(LIBDIR)$(LIBS) $(OBJS)
 	$(CC) $(CFLAG) -lncursesw $(OBJS) -o $(NAME) $(LIBDIR)$(LIBS)
 
 $(OBJDIR)%.o: $(SRCDIR)%.c Makefile | $(OBJDIR)
@@ -67,7 +67,9 @@ $(OBJDIR)%.o: $(SRCDIR)%.c Makefile | $(OBJDIR)
 $(OBJDIR):
 	mkdir -p $(OBJDIR) $(dir $(OBJS))
 
-$(LIBS): FORCE
+$(LIBDIR)$(LIBS): makelibft
+
+makelibft:
 	@$(MAKE) -C $(LIBDIR) --no-print-directory
 
 bonus: $(NAME)_bonus
@@ -92,4 +94,4 @@ FORCE:
 
 -include $(DEPS)
 
-.PHONY: clean fclean re all bonus
+.PHONY: clean fclean re all bonus makelibft

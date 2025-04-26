@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 09:13:16 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 14:59:53 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/04/26 15:21:50 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,22 @@ typedef struct	s_player	t_player;
 enum e_const
 {
 	WIN_VALUE = 1
+};
+
+enum colors_pairs {
+	COLOR_PAIR_BG = 2,
+	COLOR_PAIR_2,
+	COLOR_PAIR_4,
+	COLOR_PAIR_8,
+	COLOR_PAIR_16,
+	COLOR_PAIR_32,
+	COLOR_PAIR_64,
+	COLOR_PAIR_128,
+	COLOR_PAIR_256,
+	COLOR_PAIR_512,
+	COLOR_PAIR_1024,
+	COLOR_PAIR_2048,
+	COLOR_PAIR_HIGHER
 };
 
 struct t_player
@@ -59,5 +75,6 @@ int	**create_grid(int size);
 void	display(int **grid, int size);
 int	ft_get_n_size(int n);
 void	game_while(int selected_grid, int **grid, int *score, int win_condition, int *biggest, int *youaredead_screen);
+void init_display_colors();
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:38:25 by lilefebv          #+#    #+#             */
-/*   Updated: 2025/04/26 14:59:46 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/04/26 15:32:45 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,42 @@
 #include <time.h>
 #include "ft_printf.h"
 #include "get_next_line.h"
+
+void init_display_colors()
+{
+    init_pair(COLOR_PAIR_BG, COLOR_BLACK, COLOR_WHITE);
+    init_pair(COLOR_PAIR_2, COLOR_BLACK, COLOR_WHITE);
+    init_pair(COLOR_PAIR_4, COLOR_BLACK, COLOR_YELLOW);
+    init_pair(COLOR_PAIR_8, COLOR_WHITE, COLOR_MAGENTA);
+    init_pair(COLOR_PAIR_16, COLOR_WHITE, COLOR_RED);
+    init_pair(COLOR_PAIR_32, COLOR_WHITE, COLOR_GREEN);
+    init_pair(COLOR_PAIR_64, COLOR_WHITE, COLOR_CYAN);
+    init_pair(COLOR_PAIR_128, COLOR_BLACK, COLOR_YELLOW);
+    init_pair(COLOR_PAIR_256, COLOR_BLACK, COLOR_CYAN);
+    init_pair(COLOR_PAIR_512, COLOR_WHITE, COLOR_BLUE);
+    init_pair(COLOR_PAIR_1024, COLOR_WHITE, COLOR_MAGENTA);
+    init_pair(COLOR_PAIR_2048, COLOR_WHITE, COLOR_RED);
+    init_pair(COLOR_PAIR_HIGHER, COLOR_WHITE, COLOR_BLACK);
+}
+
+int get_tile_color(int value)
+{
+    switch (value) {
+        case 0: return COLOR_PAIR_BG;
+        case 2: return COLOR_PAIR_2;
+        case 4: return COLOR_PAIR_4;
+        case 8: return COLOR_PAIR_8;
+        case 16: return COLOR_PAIR_16;
+        case 32: return COLOR_PAIR_32;
+        case 64: return COLOR_PAIR_64;
+        case 128: return COLOR_PAIR_128;
+        case 256: return COLOR_PAIR_256;
+        case 512: return COLOR_PAIR_512;
+        case 1024: return COLOR_PAIR_1024;
+        case 2048: return COLOR_PAIR_2048;
+        default: return COLOR_PAIR_HIGHER;
+    }
+}
 
 int	**create_grid(int size)
 {
@@ -215,6 +251,37 @@ void draw_game_grid(int size) {
     }
 }
 
+void	fill_cell(int y, int x, int size)
+{
+	int grid_top = 0;
+    int grid_bottom = LINES - 5;
+    int grid_left = 0;
+    int grid_right = COLS - 1;
+
+	int cell_width = (grid_right - grid_left) / size;
+    int cell_height = (grid_bottom - grid_top) / size;
+
+	int x1 = x * cell_width + 1;
+	int y1 = y * cell_height + 1;
+	int x2 = x1 + cell_width - 1;
+	int y2 = y1 + cell_height - 1;
+	if (y == size - 1)
+		y2 = LINES - 5;
+	if (x == size - 1)
+		x2 = COLS - 1;
+	
+	while (y1 < y2)
+	{
+		int t = x1;
+		while (t < x2)
+		{
+			mvprintw(y1, t, " ");
+			t++;
+		}
+		y1++;
+	}
+}
+
 void	put_grid_to_win(int **grid, int size)
 {
 	int grid_top = 0;
@@ -234,7 +301,10 @@ void	put_grid_to_win(int **grid, int size)
 		{
 			if (grid[y][x] == 0)
 				continue ;
+			attron(COLOR_PAIR(get_tile_color(grid[y][x])));
+			fill_cell(y, x, size);
 			mvprintw(y * cell_height + cell_height / 2, x * cell_width + cell_width / 2 - ft_get_n_size(grid[y][x]) / 2, "%d", grid[y][x]);
+			attroff(COLOR_PAIR(get_tile_color(grid[y][x])));
 		}
 		y++;
 	}
@@ -250,7 +320,7 @@ void	game_while(int selected_grid, int **grid, int *score, int win_condition, in
 	game = subwin(stdscr, LINES, COLS, 0, 0);
 	int y, x;
 
-	init_pair(1 , COLOR_RED, COLOR_BLACK);
+	init_display_colors();
 	
 	while (running)
 	{
@@ -336,4 +406,6 @@ void	game_while(int selected_grid, int **grid, int *score, int win_condition, in
 		}
 		wrefresh(game);
 	}
+
+	init_pair(1 , COLOR_RED, COLOR_BLACK);
 }

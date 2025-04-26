@@ -25,11 +25,11 @@ OBJDIR = .Obj/
 
 MAIN =		main.c
 
-UTILS =
+UTILS =		slide.c
 
-GAME =		
+GAME =		logic.c		movement.c
 
-INC =		libft.h
+INC =		libft.h		slide.h
 
 # -----------SRCS-----------#
 
@@ -58,7 +58,7 @@ all: $(NAME) Makefile
 $(NAME): $(LIBS) $(OBJS)
 	$(CC) $(CFLAG) -lncurses $(OBJS) -o $(NAME) $(LIBDIR)$(LIBS)
 
-$(OBJDIR)%.o: $(SRCDIR)%.c | $(OBJDIR)
+$(OBJDIR)%.o: $(SRCDIR)%.c Makefile | $(OBJDIR)
 	$(CC) $(CFLAGS) -I $(INCDIR) $(if $(LIBS),-I $(LIBDIR)$(INCDIR)) -c $< -o $@ 
 
 $(OBJDIR):

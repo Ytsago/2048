@@ -1,6 +1,6 @@
 # -----------RULES-----------#
 
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -lncurses
+CFLAGS = -Wall  -Wextra -Werror -MMD -MP 
 CC = cc
 AR = ar
 ARFLAG = -rcs
@@ -49,7 +49,7 @@ NAME =	2048
 all: $(NAME) Makefile
 
 $(NAME): $(LIBS) $(OBJS)
-	$(CC) $(CFLAG) $(OBJS) -o $(NAME) $(LIBS)
+	$(CC) $(CFLAG) -lncurses $(OBJS) -o $(NAME) $(LIBS)
 
 $(OBJDIR)%.o: $(SRCDIR)%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -I $(INCDIR) $(if $(LIBS),-I $(LIBDIR)$(INCDIR)) -c $< -o $@ 

@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:38:25 by lilefebv          #+#    #+#             */
-/*   Updated: 2025/04/26 15:32:45 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/04/26 16:39:10 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,7 +282,49 @@ void	fill_cell(int y, int x, int size)
 	}
 }
 
-void	put_grid_to_win(int **grid, int size)
+void	print_chiffre(int x, int y, int nb)
+{
+	static const unsigned char	nb_tab[10][5] = {
+		{0x3E, 0x51, 0x49, 0x45, 0x3E},
+		{0x00, 0x42, 0x7F, 0x40, 0x00},
+		{0x42, 0x61, 0x51, 0x49, 0x46},
+		{0x21, 0x41, 0x45, 0x4B, 0x31},
+		{0x18, 0x14, 0x12, 0x7F, 0x10},
+		{0x27, 0x45, 0x45, 0x45, 0x39},
+		{0x3C, 0x4A, 0x49, 0x49, 0x30},
+		{0x03, 0x01, 0x71, 0x09, 0x07},
+		{0x36, 0x49, 0x49, 0x49, 0x36},
+		{0x06, 0x49, 0x49, 0x29, 0x1E}
+	};
+
+	int i, j;
+	i = -1;
+	while (++i < 5)
+	{
+		j = -1;
+		while (++j < 7)
+			if (nb_tab[nb][i] & (1 << j))
+				mvprintw(y + j, x + i, "█");
+	}
+}
+
+void print_nb_recur(int *x, int y, int nb)
+{
+	if (nb > 10)
+		print_nb_recur(x, y, nb / 10);
+	print_chiffre(*x, y, nb % 10);
+	*x += 6;
+}
+
+void	print_nb(int x, int y, int nb)
+{
+	y -= 3;
+	x -= ft_get_n_size(nb) * 3 - 1;
+
+	print_nb_recur(&x, y, nb);
+}
+
+void	put_grid_to_win(int **grid, int size, int biggest)
 {
 	int grid_top = 0;
     int grid_bottom = LINES - 5;
@@ -292,6 +334,10 @@ void	put_grid_to_win(int **grid, int size)
     int cell_width = (grid_right - grid_left) / size;
     int cell_height = (grid_bottom - grid_top) / size;
 
+	int printbignb = 0;
+	if (ft_get_n_size(biggest) * 6 < cell_width && cell_height >= 9)
+		printbignb = 1;
+	
 	int x, y;
 	y = 0;
 	while (y < size)
@@ -303,13 +349,40 @@ void	put_grid_to_win(int **grid, int size)
 				continue ;
 			attron(COLOR_PAIR(get_tile_color(grid[y][x])));
 			fill_cell(y, x, size);
-			mvprintw(y * cell_height + cell_height / 2, x * cell_width + cell_width / 2 - ft_get_n_size(grid[y][x]) / 2, "%d", grid[y][x]);
+			if (printbignb)
+				print_nb(x * cell_width + cell_width / 2 - ft_get_n_size(grid[y][x]) / 2, y * cell_height + cell_height / 2, grid[y][x]);
+			else
+				mvprintw(y * cell_height + cell_height / 2, x * cell_width + cell_width / 2 - ft_get_n_size(grid[y][x]) / 2, "%d", grid[y][x]);
 			attroff(COLOR_PAIR(get_tile_color(grid[y][x])));
 		}
 		y++;
 	}
 }
 
+int is_game_blocked(int **grid, int size)
+{
+	int x, y;
+
+	y = -1;
+	while (++y < size)
+	{
+		x = -1;
+		while (++x < size)
+		{
+			if (grid[y][x] == 0)
+				return (0);
+			if (x > 0 && grid[y][x] == grid[y][x - 1])
+				return (0);
+			if (x < size - 1 && grid[y][x] == grid[y][x + 1])
+				return (0);
+			if (y > 0 && grid[y][x] == grid[y - 1][x])
+				return (0);
+			if (y < size - 1 && grid[y][x] == grid[y + 1][x])
+				return (0);
+		}
+	}
+	return (1);
+}
 
 void	game_while(int selected_grid, int **grid, int *score, int win_condition, int *biggest, int *youaredead_screen)
 {
@@ -335,7 +408,7 @@ void	game_while(int selected_grid, int **grid, int *score, int win_condition, in
 			draw_game_grid(selected_grid);
 			mvwprintw(game, LINES - 5, 0, "├");
 			mvwprintw(game, LINES - 5, COLS - 1, "┤");
-			put_grid_to_win(grid, selected_grid);
+			put_grid_to_win(grid, selected_grid, *biggest);
 
 			mvwprintw(game, LINES - 3, 10, "Score : %d", *score);
 
@@ -360,29 +433,57 @@ void	game_while(int selected_grid, int **grid, int *score, int win_condition, in
 				if (input == 27) {
 					running = 0;
 				} else if (input == KEY_LEFT) {
-					move_left(grid, selected_grid, score);
-					if (generat_number(grid, selected_grid))
+					if (move_left(grid, selected_grid, score))
+					{
+						if (generat_number(grid, selected_grid))
+						{
+							*youaredead_screen = 1;
+							running = 0;
+						}
+					}
+					if (is_game_blocked(grid, selected_grid))
 					{
 						*youaredead_screen = 1;
 						running = 0;
 					}
 				} else if (input == KEY_RIGHT) {
-					move_right(grid, selected_grid, score);
-					if (generat_number(grid, selected_grid))
+					if (move_right(grid, selected_grid, score))
+					{
+						if (generat_number(grid, selected_grid))
+						{
+							*youaredead_screen = 1;
+							running = 0;
+						}
+					}
+					if (is_game_blocked(grid, selected_grid))
 					{
 						*youaredead_screen = 1;
 						running = 0;
 					}
 				} else if (input == KEY_UP) {
-					move_up(grid, selected_grid, score);
-					if (generat_number(grid, selected_grid))
+					if (move_up(grid, selected_grid, score))
+					{
+						if (generat_number(grid, selected_grid))
+						{
+							*youaredead_screen = 1;
+							running = 0;
+						}
+					}
+					if (is_game_blocked(grid, selected_grid))
 					{
 						*youaredead_screen = 1;
 						running = 0;
 					}
 				} else if (input == KEY_DOWN) {
-					move_down(grid, selected_grid, score);
-					if (generat_number(grid, selected_grid))
+					if (move_down(grid, selected_grid, score))
+					{
+						if (generat_number(grid, selected_grid))
+						{
+							*youaredead_screen = 1;
+							running = 0;
+						}
+					}
+					if (is_game_blocked(grid, selected_grid))
 					{
 						*youaredead_screen = 1;
 						running = 0;

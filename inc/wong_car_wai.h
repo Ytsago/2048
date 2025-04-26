@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wong_car_wai.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 09:13:16 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 15:48:35 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 16:42:11 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct	s_high	t_high;
 
 enum e_const
 {
-	WIN_VALUE = 1
+	WIN_VALUE = 2048
 };
 
 enum colors_pairs {
@@ -73,7 +73,6 @@ int		move_up(int **grid, int size, int *score);
 int		move_right(int **grid, int size, int *score);
 
 //--------Utils--------//
-void	put_grid_to_win(int **grid, int size);
 void draw_game_grid(int size);
 void rectangle(int y1, int x1, int y2, int x2);
 void window_resize(int signal);

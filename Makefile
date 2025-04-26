@@ -67,9 +67,7 @@ $(OBJDIR)%.o: $(SRCDIR)%.c Makefile | $(OBJDIR)
 $(OBJDIR):
 	mkdir -p $(OBJDIR) $(dir $(OBJS))
 
-$(LIBDIR)$(LIBS): makelibft
-
-makelibft:
+$(LIBDIR)$(LIBS): FORCE
 	@$(MAKE) -C $(LIBDIR) --no-print-directory
 
 bonus: $(NAME)_bonus
@@ -97,4 +95,4 @@ FORCE:
 
 -include $(DEPS)
 
-.PHONY: clean fclean re all bonus makelibft
+.PHONY: clean fclean re all bonus  FORCE

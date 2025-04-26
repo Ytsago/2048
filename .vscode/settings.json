@@ -4,6 +4,7 @@
 		"wong_car_wai.h": "c",
 		"signal.h": "c",
 		"libft.h": "c",
-		"atomic": "cpp"
+		"atomic": "cpp",
+		"limits": "c"
 	}
 }

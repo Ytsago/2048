@@ -1,0 +1,4 @@
+damien:2048
+rudolf:4096
+lisa:64
+melanie:8192

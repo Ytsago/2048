@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 09:13:16 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 14:23:53 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/04/26 14:33:37 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	init_grid(int **grid, int size);
 int		generat_number(int **grid, int size);
 
 //-------Movement-------//
-int		move_left(int **grid, int size);
-int		move_down(int **grid, int size);
-int		move_up(int **grid, int size);
-int		move_right(int **grid, int size);
+int		move_left(int **grid, int size, int *score);
+int		move_down(int **grid, int size, int *score);
+int		move_up(int **grid, int size, int *score);
+int		move_right(int **grid, int size, int *score);
 
 #endif

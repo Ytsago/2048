@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 10:11:21 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 14:23:12 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/04/26 14:36:27 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,28 +340,28 @@ int main(int ac, char **av) {
 					if (input == 27) {
 						running = 0;
 					} else if (input == KEY_LEFT) {
-						move_left(grid, selected_grid);
+						move_left(grid, selected_grid, &score);
             			if (generat_number(grid, selected_grid))
 						{
 							youaredead_screen = 1;
 							running = 0;
 						}
 					} else if (input == KEY_RIGHT) {
-						move_right(grid, selected_grid);
+						move_right(grid, selected_grid, &score);
             			if (generat_number(grid, selected_grid))
 						{
 							youaredead_screen = 1;
 							running = 0;
 						}
 					} else if (input == KEY_UP) {
-						move_up(grid, selected_grid);
+						move_up(grid, selected_grid, &score);
 						if (generat_number(grid, selected_grid))
 						{
 							youaredead_screen = 1;
 							running = 0;
 						}
 					} else if (input == KEY_DOWN) {
-						move_down(grid, selected_grid);
+						move_down(grid, selected_grid, &score);
             			if (generat_number(grid, selected_grid))
 						{
 							youaredead_screen = 1;

@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:43:30 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 16:40:13 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 16:41:40 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,38 +97,39 @@ int	get_highscore(char *filename, t_high *board, t_player *current)
 		i++;
 	}
 	close(fd);
+	return (0);
 }
 
-// void	display_board(t_high board)
-// {
-// 	int	i = 0;
-// 	while (i < BOARD_SIZE)
-// 	{
-// 		if (!board.best[i].name)
-// 			break ;
-// 		ft_printf("%s :", board.best[i].name);
-// 		ft_printf(" %s\n", ft_itoa(board.best[i].score));
-// 		i++;
-// 	}
-// }
+void	display_board(t_high board)
+{
+	int	i = 0;
+	while (i < BOARD_SIZE)
+	{
+		if (!board.best[i].name)
+			break ;
+		ft_printf("%s :", board.best[i].name);
+		ft_printf(" %s\n", ft_itoa(board.best[i].score));
+		i++;
+	}
+}
 
-// int	main()
-// {
-// 	t_high		board;
-// 	t_player 	current;
+int	main()
+{
+	t_high		board;
+	t_player 	current;
 
-// 	ft_bzero(&current, sizeof(t_player));
-// 	current.name = NAME_D;
+	ft_bzero(&current, sizeof(t_player));
+	current.name = NAME_D;
 
-// 	ft_bzero(&board, sizeof(board));
-// 	get_highscore(FILENAME, &board, &current);
-// 	// display_board(board);
-// 	int i = 0;
-// 	while (i < BOARD_SIZE)
-// 	{
-// 		if (board.best[i].name)
-// 			free(board.best[i].name);
-// 		i++;
-// 	}
-// 	ft_printf("\n--- Current score : %d\n", current.score);
-// }
+	ft_bzero(&board, sizeof(board));
+	get_highscore(FILENAME, &board, &current);
+	display_board(board);
+	int i = 0;
+	while (i < BOARD_SIZE)
+	{
+		if (board.best[i].name)
+			free(board.best[i].name);
+		i++;
+	}
+	ft_printf("\n--- Current score : %d\n", current.score);
+}

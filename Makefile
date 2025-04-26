@@ -1,6 +1,6 @@
 # -----------RULES-----------#
 
-CFLAGS = -Wall  -Wextra -Werror -MMD -MP 
+CFLAGS = -Wall  -Wextra -Werror -MMD -MP -g3
 CC = cc
 AR = ar
 ARFLAG = -rcs
@@ -10,6 +10,8 @@ ARFLAG = -rcs
 SRCDIR = src/
 
 UTIDIR = $(SRCDIR)utils/
+
+GAMEDIR = $(SRCDIR)game/
 
 # UTILS SUBDIRECTORIES #
 
@@ -25,6 +27,8 @@ MAIN =		main.c
 
 UTILS =
 
+GAME =		
+
 INC =		libft.h
 
 # -----------SRCS-----------#
@@ -32,6 +36,7 @@ INC =		libft.h
 
 SRCS =	$(addprefix $(SRCDIR), $(MAIN)) \
 		$(addprefix $(UTIDIR), $(UTILS)) \
+		$(addprefix $(GAMEDIR), $(GAME)) \
 
 
 # -----------OTHER-----------#

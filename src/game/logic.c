@@ -1,36 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wong_car_wai.h                                     :+:      :+:    :+:   */
+/*   logic.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/26 09:13:16 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 09:47:10 by secros           ###   ########.fr       */
+/*   Created: 2025/04/26 09:44:56 by secros            #+#    #+#             */
+/*   Updated: 2025/04/26 09:46:43 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WONG_CAR_WAI_H
-# define WONG_CAR_WAI_H
-
-# include <ncurses.h>
-# include "libft.h"
-
-# define NAME_D "Unknow"
-
-typedef struct	s_player	t_player;
-
-enum e_const
+void	init_grid(int **grid, int size)
 {
-	WIN_VALUE = 2048
-};
-
-struct t_player
-{
-	char	*name;
-	size_t	score;
-	int		**grid;
-	int		size;
-};
-
-#endif
+	
+}

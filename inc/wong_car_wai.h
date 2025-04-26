@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 09:13:16 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 15:05:07 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 15:08:26 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ extern int sig_global;
 
 typedef struct	s_player	t_player;
 
+typedef struct	s_high	t_high;
+
 enum e_const
 {
 	WIN_VALUE = 1
@@ -36,6 +38,11 @@ struct t_player
 {
 	char	*name;
 	size_t	score;
+};
+
+struct t_high
+{
+	t_player	best[5]
 };
 
 void	init_grid(int **grid, int size);

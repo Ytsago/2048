@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:43:30 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 15:04:23 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/26 15:06:04 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	get_highscore(char *filename, t_player *player)
 
 	if (fd == -1)
 		return (1);
+	
 	
 }
 

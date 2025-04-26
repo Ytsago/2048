@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 10:11:21 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 12:47:12 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2025/04/26 12:52:41 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,13 +229,12 @@ void	put_grid_to_win(int **grid, int size)
 	y = 0;
 	while (y < size)
 	{
-		x = 0;
-		while (x < size)
+		x = -1;
+		while (++x < size)
 		{
 			if (grid[y][x] == 0)
 				continue ;
 			mvprintw(y * cell_height + cell_height / 2, x * cell_width + cell_width / 2 - ft_get_n_size(grid[y][x]) / 2, "%d", grid[y][x]);
-			x++;
 		}
 		y++;
 	}
@@ -304,6 +303,7 @@ int main(int ac, char **av) {
 			}
 			else
 			{
+				erase();
 				box(game, ACS_VLINE, ACS_HLINE);
 				draw_game_grid(selected_grid);
 				mvwprintw(game, LINES - 5, 0, "├");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 10:11:21 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 21:00:51 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/27 11:33:53 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,31 @@ int main(int ac, char **av) {
 		name = av[1];
 	else
 		name = NAME_D;
+
+	// VERIF NAME
+	if (name && ft_strlen(name) > 30)
+	{
+		endwin();
+		ft_printf("You cant have a pseudo that long bro\n");
+		return (1);
+	}
+	if (name && ft_isdigit(name[0]))
+	{
+		endwin();
+		ft_printf("Sorry we dont support the numbers at the start of a pseudo\n");
+		return (1);
+	}
+	int p = 0;
+	while (name && name[p])
+	{
+		if (!ft_isalnum(name[p]) && name[p] != '_')
+		{
+			endwin();
+			ft_printf("Dude stop with the special char in your pseudo\n");
+			return (1);
+		}
+		p++;
+	}
   
   srand(time(NULL));
   
@@ -129,10 +154,10 @@ int main(int ac, char **av) {
 				
 				if (win_condition == -1 || win_condition > biggest)
 				{
-					mvwprintw(death_screen, LINES / 2 - 5 - num_leaderboard / 2, COLS / 2 - 50 / 2, " _  _  __   _  _    __     __    __   ____  ____ ");
-					mvwprintw(death_screen, LINES / 2 - 4 - num_leaderboard / 2, COLS / 2 - 50 / 2, "( \\/ )/  \\ / )( \\  (  )   /  \\  /  \\ / ___)(  __)");
-					mvwprintw(death_screen, LINES / 2 - 3 - num_leaderboard / 2, COLS / 2 - 50 / 2, " )  /(  O )) \\/ (  / (_/\\(  O )(  O )\\___ \\ ) _) ");
-					mvwprintw(death_screen, LINES / 2 - 2 - num_leaderboard / 2, COLS / 2 - 50 / 2, "(__/  \\__/ \\____/  \\____/ \\__/  \\__/ (____/(____)");
+					mvwprintw(death_screen, LINES / 2 - 5 - num_leaderboard / 2, COLS / 2 - 44 / 2, " _  _  __   _  _    __     __   ____  ____ ");
+					mvwprintw(death_screen, LINES / 2 - 4 - num_leaderboard / 2, COLS / 2 - 44 / 2, "( \\/ )/  \\ / )( \\  (  )   /  \\ / ___)(  __)");
+					mvwprintw(death_screen, LINES / 2 - 3 - num_leaderboard / 2, COLS / 2 - 44 / 2, " )  /(  O )) \\/ (  / (_/\\(  O )\\___ \\ ) _) ");
+					mvwprintw(death_screen, LINES / 2 - 2 - num_leaderboard / 2, COLS / 2 - 44 / 2, "(__/  \\__/ \\____/  \\____/ \\__/ (____/(____)");
 				}
 				else
 				{

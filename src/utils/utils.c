@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:38:25 by lilefebv          #+#    #+#             */
-/*   Updated: 2025/04/26 21:01:35 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/27 11:37:20 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -433,11 +433,16 @@ void	game_while(int selected_grid, int **grid, size_t *score, int win_condition,
 			}
 
 			if (win_condition != -1 && win_condition <= *biggest)
-				mvwprintw(game, LINES - 3, 30, "You won, you can leave the game with [SPACE]");
+			{
+				if (current_player->score == 0 && high->score == 0)
+					mvwprintw(game, LINES - 3, 30, "You won, you can leave the game with [SPACE]");
+				else
+					mvwprintw(game, LINES - 2, 30, "You won, you can leave the game with [SPACE]");
+			}
 	
 			input = getch();
 			if (input != ERR) {
-				if (input == 27) {
+				if (input == 'q' || input == 27) {
 					running = 0;
 				} else if (input == KEY_LEFT) {
 					if (move_left(grid, selected_grid, score))

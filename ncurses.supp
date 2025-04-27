@@ -33,7 +33,6 @@
 {
    tinfo_tiparm_leak
    Memcheck:Leak
-   fun:malloc
    fun:tsearch
    obj:/usr/lib/x86_64-linux-gnu/libtinfo.so.*
    obj:/usr/lib/x86_64-linux-gnu/libncursesw.so.*

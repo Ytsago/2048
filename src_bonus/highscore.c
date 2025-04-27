@@ -6,7 +6,7 @@
 /*   By: secros <secros@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:43:30 by secros            #+#    #+#             */
-/*   Updated: 2025/04/26 19:11:22 by secros           ###   ########.fr       */
+/*   Updated: 2025/04/27 15:56:28 by secros           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ void	write_in_file(int fd, t_player actual, int new_score)
 		else
 		{
 			write (fd, new, ft_strlen(new));
+			write (fd, "\n", 1);
 			free(new);
 		}
 	}
